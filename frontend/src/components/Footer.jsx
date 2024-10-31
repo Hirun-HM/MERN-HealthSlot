@@ -24,8 +24,18 @@ const footer = () => {
             </div>
             {/*---right section-----*/}
             <div>
+                <p>GET IN TOUCH</p>
+                <ul>
+                    <li>+94-729827098</li>
+                    <li>hirun080720002@gmail.com</li>
+                </ul>
 
             </div>
+        </div>
+
+        <div>
+            <hr />
+            <p>Copyright 2024@ HealthSlot - All Right Reserved</p>
         </div>
       
     </div>
