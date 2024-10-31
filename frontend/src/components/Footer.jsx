@@ -1,5 +1,6 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Navigate } from 'react-router-dom'
 
 const footer = () => {
   return (
@@ -7,7 +8,7 @@ const footer = () => {
         <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
             {/*---left section-----*/}
             <div>
-                <img className='mb-5 w-40 ' src= {assets.logo} alt='' />
+                <img  className='mb-5 w-40 ' src= {assets.logo} alt='' />
                 <p className='w-full md:w-2/3 text-gray-600 leading-6'>gfdhgfgjgdhgdddddjfjjjjjjjjjjjjj</p>
 
             </div>
