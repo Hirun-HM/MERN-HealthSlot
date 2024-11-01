@@ -286,7 +286,7 @@ export const doctors = [
         _id: 'doc15',
         name: 'Dr. Amelia Hill',
         image: doc15,
-        speciality: 'Dermatologist',
+        speciality: 'Gastroenterologist',
         degree: 'MBBS',
         experience: '1 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
