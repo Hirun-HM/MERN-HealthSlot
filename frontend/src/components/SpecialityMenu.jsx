@@ -2,6 +2,7 @@ import React from 'react'
 import { specialityData } from '../assets/assets'
 import { Link } from 'react-router-dom'
 
+
 const SpecialityMenu = () => {
   return (
     <div className='flex flex-col items-center gap-4 py-16 text-gray-800' id='speciality'>
