@@ -8,3 +8,5 @@
 
     }
  }
+
+ export {addDoctor}
