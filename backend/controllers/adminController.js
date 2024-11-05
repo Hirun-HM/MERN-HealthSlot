@@ -1,3 +1,7 @@
+ import validator from "validator";
+ 
+ 
+ 
  //API for adding doctor
 
  const addDoctor = async (req,res) => {
@@ -10,6 +14,13 @@
             return res.json({
                 success: false,
                 message: "missing details"
+            })
+        }
+
+        if (!validator.isEmail(email)) {
+            return res.json({
+                success: false,
+                message: "please enter valid email"
             })
         }
     }catch(error){
