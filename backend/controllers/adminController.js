@@ -1,4 +1,5 @@
  import validator from "validator";
+ import bcrypt from 'bcrypt'
  
  
  
@@ -31,6 +32,9 @@
                 messgae: "please enter strong password"
             })
         }
+
+        //hashing doctor password
+        
     }catch(error){
 
     }
