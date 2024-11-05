@@ -16,11 +16,19 @@
                 message: "missing details"
             })
         }
-
+//validating email format
         if (!validator.isEmail(email)) {
             return res.json({
                 success: false,
                 message: "please enter valid email"
+            })
+        }
+
+        //validating password
+        if (password.length < 8) {
+            return res.json({
+                success: false,
+                messgae: "please enter strong password"
             })
         }
     }catch(error){
