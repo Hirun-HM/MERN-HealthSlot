@@ -6,7 +6,7 @@
         const imageFile = req.file;
         
         //checking for all data to add doctor
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address) {
             
         }
     }catch(error){
