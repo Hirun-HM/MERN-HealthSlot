@@ -72,7 +72,7 @@ const addDoctor = async (req, res) => {
       experience,
       about,
       fees,
-      address: json.parse(address),
+      address: typeof address === 'string' ? JSON.parse(address) : address,
       date: Date.now(),
     };
 
