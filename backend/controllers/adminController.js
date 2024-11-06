@@ -95,6 +95,10 @@ const addDoctor = async (req, res) => {
 //api for the admin login
 const loginAdmin = async (req,res) =>{
   try{
+    const {email,password} = req.body
+    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      
+    }
 
   }catch(error){
     console.log(error)
@@ -105,4 +109,4 @@ const loginAdmin = async (req,res) =>{
   }
 }
 
-export { addDoctor };
+export { addDoctor,loginAdmin };
