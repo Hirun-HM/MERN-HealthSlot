@@ -10,7 +10,9 @@ const authAdmin = async (req,res,next) => {
                 success: false,
                 message: 'Not authorized login again'
              })
+
         }
+        const token_decode = jwt.verify(atoken)
 
     }catch(error){
         console.log(error)
