@@ -12,7 +12,11 @@ const authAdmin = async (req,res,next) => {
              })
 
         }
-        const token_decode = jwt.verify(atoken)
+        const token_decode = jwt.verify(atoken,process.env.JWT_SECRET)
+
+        if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
+            
+        }
 
     }catch(error){
         console.log(error)
