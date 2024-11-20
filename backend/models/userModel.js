@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     gender:{type:String, default:"Not Selected"},
     dob:{type:String, default:"Not Selected"},
     phone:{type:String, default:'000000000'}
+    
 })
 
 
