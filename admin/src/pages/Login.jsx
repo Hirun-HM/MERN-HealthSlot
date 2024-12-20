@@ -25,8 +25,8 @@ const [state,setState] = useState('Admin')
      </button>
      {
         state === 'Admin'
-        ? <p>Doctor Login? <span onClick={setState('Doctor')}> Click here</span></p>
-        : <p>Admin Login? <span onClick={setState('Admin')}> Click here</span></p>
+        ? <p>Doctor Login? <span className='text-primary underline cursor-pointer' onClick={() => setState('Doctor')}> Click here</span></p>
+        : <p>Admin Login? <span className='text-primary underline cursor-pointer' onClick={() =>setState('Admin')}> Click here</span></p>
      }
 
     </div>
