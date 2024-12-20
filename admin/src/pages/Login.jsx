@@ -23,6 +23,11 @@ const [state,setState] = useState('Admin')
      <button className='bg-primary text-white w-full py-2 rounded-md text-base'>
         Login
      </button>
+     {
+        state === 'Admin'
+        ? <p>Doctor Login? <span onClick={setState('Doctor')}> Click here</span></p>
+        : <p>Admin Login? <span onClick={setState('Admin')}> Click here</span></p>
+     }
 
     </div>
     </form>
