@@ -5,10 +5,10 @@ import { AdminContext } from "../context/AdminContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const {setAToken,backendUrl} = useContext(AdminContext)
+  const { setAToken, backendUrl } = useContext(AdminContext);
 
   return (
     <form className="min-h-[80vh] flex items-center">
@@ -19,6 +19,8 @@ const Login = () => {
         <div className="w-full">
           <p>Email</p>
           <input
+            onClick={(e) => setEmail(e.target.value)}
+            value={email}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="email"
             required
@@ -27,6 +29,8 @@ const Login = () => {
         <div className="w-full">
           <p>Password</p>
           <input
+            onClick={(e) => setPassword(e.target.value)}
+            value={password}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="password"
             required
