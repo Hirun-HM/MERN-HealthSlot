@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
+import { AdminContext } from "../context/AdminContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
+
+  const {setAToken} = useContext(AdminContext)
 
   return (
     <form className="min-h-[80vh] flex items-center">
