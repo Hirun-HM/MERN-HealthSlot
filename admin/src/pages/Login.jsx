@@ -13,23 +13,22 @@ const Login = () => {
   const { setAToken, backendUrl } = useContext(AdminContext);
 
   const onSubmitHandler = async (event) => {
-event.preventDefault()
+    event.preventDefault();
 
-try {
-    if (state === 'Admin') {
-        const {data} = await axios.post(backendUrl + '/api/admin/login',{email,password})
+    try {
+      if (state === "Admin") {
+        const { data } = await axios.post(backendUrl + "/api/admin/login", {
+          email,
+          password,
+        });
         if (data.success) {
-            console.log(data.token);
-            
+            localStorage.setItem('aToken',data.token)
+          setAToken(data.token);
         }
-    }else{
-
-    }
-    
-} catch (error) {
-    
-}
-  }
+      } else {
+      }
+    } catch (error) {}
+  };
 
   return (
     <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
