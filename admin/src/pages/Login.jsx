@@ -1,8 +1,10 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
@@ -12,19 +14,24 @@ const Login = () => {
   const { setAToken, backendUrl } = useContext(AdminContext);
 
   const onSubmitHandler = async (event) => {
-event.preventDefault()
+    event.preventDefault();
 
-try {
-    if (state === 'Admin') {
-        const {data} = await axios.post(backendUrl + '/api/admin/login')
-    }else{
-
-    }
-    
-} catch (error) {
-    
-}
-  }
+    try {
+      if (state === "Admin") {
+        const { data } = await axios.post(backendUrl + "/api/admin/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+            localStorage.setItem('aToken',data.token)
+          setAToken(data.token);
+        } else{
+            toast.error(data.message)
+        }
+      } else {
+      }
+    } catch (error) {}
+  };
 
   return (
     <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
@@ -35,7 +42,7 @@ try {
         <div className="w-full">
           <p>Email</p>
           <input
-            onClick={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="email"
@@ -45,7 +52,7 @@ try {
         <div className="w-full">
           <p>Password</p>
           <input
-            onClick={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="password"
