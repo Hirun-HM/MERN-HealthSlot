@@ -16,16 +16,16 @@ const Sidebar = () => {
                     <p>Dashboard</p>
                 </NavLink>
                 <NavLink>
-                    <img src={assets.home_icon} alt="" />
+                    <img src={assets.appointment_icon} alt="" />
                     <p>Appointment</p>
                 </NavLink>
                 <NavLink>
-                    <img src={assets.home_icon} alt="" />
-                    <p>Dashboard</p>
+                    <img src={assets.add_icon} alt="" />
+                    <p>Add Doctor</p>
                 </NavLink>
                 <NavLink>
-                    <img src={assets.home_icon} alt="" />
-                    <p>Dashboard</p>
+                    <img src={assets.people_icon} alt="" />
+                    <p>Doctor List</p>
                 </NavLink>
 
             </ul>
