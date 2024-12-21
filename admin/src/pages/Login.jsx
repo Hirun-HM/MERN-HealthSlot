@@ -40,7 +40,7 @@ try {
         <div className="w-full">
           <p>Email</p>
           <input
-            onClick={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="email"
@@ -50,7 +50,7 @@ try {
         <div className="w-full">
           <p>Password</p>
           <input
-            onClick={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="border border-[#DADADA] rounded w-full p-2 mt-1"
             type="password"
