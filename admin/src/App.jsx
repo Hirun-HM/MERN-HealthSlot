@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { AdminContext } from "./context/AdminContext";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 
 const App = () => {
@@ -15,6 +16,9 @@ const App = () => {
       
       <ToastContainer />
       <Navbar />
+      <div className="flex items-start">
+        <Sidebar />
+      </div>
     </div>
 
   ) : (
