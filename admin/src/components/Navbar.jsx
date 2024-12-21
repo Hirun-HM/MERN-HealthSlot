@@ -6,8 +6,10 @@ const Navbar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
 
   const logout = () => {
-    aToken && setAToken("");
-    aToken && localStorage.removeItem("aToken");
+    if (aToken && window.confirm("Are you sure want to logout?")) {
+      setAToken("");
+      localStorage.removeItem("aToken");
+    }
   };
   return (
     <div className="flex justify-between items-center px-4 sm:px-10 py-3 border-b bg-white">
