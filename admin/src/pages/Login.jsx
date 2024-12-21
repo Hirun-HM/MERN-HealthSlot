@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
