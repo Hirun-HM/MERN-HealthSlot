@@ -16,7 +16,7 @@ event.preventDefault()
 
 try {
     if (state === 'Admin') {
-        
+        const {data} = await axios.post(backendUrl + '/api/admin/login')
     }else{
 
     }
