@@ -11,7 +11,7 @@ const Sidebar = () => {
     <div>
         {
             aToken && <ul>
-                <NavLink>
+                <NavLink to={'/admin-dashboard'}>
                     <img src={assets.home_icon} alt="" />
                     <p>Dashboard</p>
                 </NavLink>
