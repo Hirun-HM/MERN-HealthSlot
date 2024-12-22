@@ -15,15 +15,15 @@ const Sidebar = () => {
                     <img src={assets.home_icon} alt="" />
                     <p>Dashboard</p>
                 </NavLink>
-                <NavLink>
+                <NavLink to={'/all-appointments'}>
                     <img src={assets.appointment_icon} alt="" />
                     <p>Appointment</p>
-                </NavLink>
-                <NavLink>
+                </NavLink >
+                <NavLink to={'/add-doctor'}>
                     <img src={assets.add_icon} alt="" />
                     <p>Add Doctor</p>
                 </NavLink>
-                <NavLink>
+                <NavLink to={'/doctor-list'}>
                     <img src={assets.people_icon} alt="" />
                     <p>Doctor List</p>
                 </NavLink>
