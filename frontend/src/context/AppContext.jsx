@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 // import { doctors } from "../assets/assets";
 import axios from 'axios'
