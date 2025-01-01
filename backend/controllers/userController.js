@@ -130,6 +130,18 @@ const bookAppointment = async (req, res) => {
     }
 
     let slots_booked = docData.slots_booked;
+
+
+    if (slots_booked[slotDate]) {
+        if (slots_booked[slotDate].includes(slotTime)) {
+            return res.json({success: false,message: 'slot not available'})
+        }else {
+            slots_booked[slotDate].push(slotTime)
+        }
+    }else {
+        slots_booked[slotDate] = []
+        slots_booked[slotDate].push(slotTime)
+    }
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
