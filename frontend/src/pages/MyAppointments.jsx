@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {AppContext} from '../context/AppContext'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 const MyAppointments = () => {
@@ -19,9 +20,17 @@ const getUserAppointments = async () => {
     }
 
   } catch (error) {
+    console.log(error);
+    toast.error(error.message)
     
   }
 }
+
+useEffect(() => {
+  if (token) {
+    getUserAppointments
+  }
+},[token])
 
 
   return (
