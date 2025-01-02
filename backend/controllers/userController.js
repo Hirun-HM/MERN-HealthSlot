@@ -172,8 +172,17 @@ const bookAppointment = async (req, res) => {
 };
 
 //api to get user appointments
-const getAppointments = (req,res) => {
+const listAppointment = (req,res) => {
+   try {
     
+   } catch (error) {
+    console.log(error)
+    res.json({
+        success: false,
+        message: error.message
+    })
+    
+   } 
 }
 
 export { registerUser, loginUser, getProfile, updateProfile,bookAppointment };
