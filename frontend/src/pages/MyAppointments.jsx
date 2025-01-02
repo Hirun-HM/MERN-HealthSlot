@@ -17,6 +17,8 @@ const getUserAppointments = async () => {
 
     if (data.success) {
       setAppointments(data.appointments.reverse())
+      console.log(data.appointments);
+      
     }
 
   } catch (error) {
