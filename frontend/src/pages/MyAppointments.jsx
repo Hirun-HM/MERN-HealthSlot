@@ -50,9 +50,9 @@ useEffect(() => {
                 <p className='text-zinc-700 font-medium mt-1'>Address:</p>
                 <p className='text-xs'>{item.docData.address.line1}</p>
                 <p className='text-xs'>{item.docData.address.line2}</p>
-                <p className='text-xs mt-1'><span className='text-sm text-neutral-700 font-medium'>Date & Time:</span> 25, July, 2024 | 8.30 PM</p>
+                <p className='text-xs mt-1'><span className='text-sm text-neutral-700 font-medium'>Date & Time:</span> {item.slotDate} | {item.slotTime}</p>
               </div>
-              <div></div>
+              <div></div> 
               <div className='flex flex-col gap-2 justify-end'>
                 <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>
                 <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel appointment</button>
