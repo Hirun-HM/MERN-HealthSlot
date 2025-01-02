@@ -77,7 +77,15 @@ const Appointment = () => {
   const bookAppointment = async () => {
     if (!token) {
       toast.warn('Login to book Appointment')
-      return navigate('/')
+      return navigate('/login')
+    }
+
+    try {
+      const date = docSlots[slotIndex][0].datetime
+
+      
+    } catch (error) {
+      
     }
   }
 
