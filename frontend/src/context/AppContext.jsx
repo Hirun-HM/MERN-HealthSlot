@@ -53,6 +53,7 @@ const loadUserProfileData = async ()=> {
 
 const value ={
     doctors,
+    getDoctorsData,
     currencySymbol,
     token,setToken,
     backendUrl,
