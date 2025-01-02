@@ -192,4 +192,4 @@ const listAppointment = (req,res) => {
    } 
 }
 
-export { registerUser, loginUser, getProfile, updateProfile,bookAppointment };
+export { registerUser, loginUser, getProfile, updateProfile,bookAppointment,listAppointment };
