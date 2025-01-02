@@ -60,6 +60,10 @@ const Appointment = () => {
           minute: "2-digit",
         });
 
+        let day = currentDate.getDate()
+        let month = currentDate.getMonth()
+        let year = currentDate.getFullYear()
+
         // add slot to array
         timeSlots.push({
           datetime: new Date(currentDate),
