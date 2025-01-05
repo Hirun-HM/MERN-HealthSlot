@@ -172,11 +172,11 @@ const bookAppointment = async (req, res) => {
 };
 
 //api to get user appointments
-const listAppointment = (req,res) => {
+const listAppointment = async (req,res) => {
    try {
     const {userId} = req.body
 
-    const appointments = appointmentModel.find({userId})
+    const appointments = await appointmentModel.find({userId})
 
     res.json({success: true,appointments})
 
