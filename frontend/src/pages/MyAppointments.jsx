@@ -54,7 +54,7 @@ const cancelAppointment = async (appointmentId) => {
 
 useEffect(() => {
   if (token) {
-    getUserAppointments
+    getUserAppointments()
   }
 },[token])
 
