@@ -245,7 +245,20 @@ const paymentRazorpay = async (req,res) => {
       message: "appointment cancelled or not found"
     })
   }
-  
+
+  const options = {
+    amount: appointmentData.amount * 100,
+    currency: process.env.CURRENCY,
+    receipt: appointmentId,
+
+  }
+
+  const order = await razorpayInstance.orders.create(options)
+
+  res.json({success:true,
+    order
+  })
+
  
 
 }
