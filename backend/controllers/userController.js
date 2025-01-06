@@ -230,8 +230,8 @@ const cancelAppointment = async (req,res) => {
 
 
 const razorpayInstance = new razorpay({
-  key_id: '',
-  key_secret: ''
+  key_id: process.env.KEY_ID,
+  key_secret: process.env.KEY_SECRET
 })
 
 
@@ -246,6 +246,7 @@ const paymentRazorpay = async (req,res) => {
     })
   }
  
+
 }
 
 export { registerUser, loginUser, getProfile, updateProfile,bookAppointment,listAppointment,cancelAppointment };
