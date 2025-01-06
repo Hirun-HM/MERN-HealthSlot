@@ -245,6 +245,7 @@ const paymentRazorpay = async (req,res) => {
       message: "appointment cancelled or not found"
     })
   }
+  
  
 
 }
