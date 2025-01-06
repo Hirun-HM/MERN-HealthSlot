@@ -56,6 +56,11 @@ const cancelAppointment = async (appointmentId) => {
 const appointmentRazorpay = async (appointmentId) => {
   try {
     const {data} = await axios.post(backendUrl + '/api/user/payment-razorpay',{appointmentId},{headers:{token}})
+
+
+    if (data.success) {
+      
+    }
   } catch (error) {
     console.log(error);
     toast.error(error.message)
