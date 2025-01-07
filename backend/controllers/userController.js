@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appiontmentModel.js";
-import razorpay from "razorpay";
+import Stripe from 'stripe'
 
 //API to register user
 const registerUser = async (req, res) => {
@@ -223,37 +223,26 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-const razorpayInstance = new razorpay({
-  key_id: process.env.KEY_ID,
-  key_secret: process.env.KEY_SECRET,
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const paymentRazorpay = async (req, res) => {
+const payment = async (req, res) => {
+  const { amount, currency } = req.body; // Amount in smallest currency unit (e.g., cents for USD)
+
   try {
-    const { appointmentId } = req.body;
-    const appointmentData = await appointmentModel.findById(appointmentId);
-
-    if (!appointmentData || appointmentData.cancelled) {
-      return res.json({
-        success: false,
-        message: "appointment cancelled or not found",
+      const paymentIntent = await stripe.paymentIntents.create({
+          amount,
+          currency, // 'usd', 'eur', etc.
+          payment_method_types: ['card'],
       });
-    }
 
-    const options = {
-      amount: appointmentData.amount * 100,
-      currency: process.env.CURRENCY,
-      receipt: appointmentId,
-    };
-
-    const order = await razorpayInstance.orders.create(options);
-
-    res.json({ success: true, order });
+      res.status(200).json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-};
+}
+
+
 
 export {
   registerUser,
@@ -263,5 +252,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  paymentRazorpay,
+  payment,
 };

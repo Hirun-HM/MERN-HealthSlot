@@ -23,6 +23,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7",
     "razorpay": "^2.9.5",
+    "stripe": "^17.5.0",
     "validator": "^13.12.0"
   }
 }
