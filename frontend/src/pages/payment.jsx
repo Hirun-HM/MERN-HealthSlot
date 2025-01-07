@@ -2,13 +2,14 @@ import  { useState, useContext } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Payment = () => {
     const stripe = useStripe();
     const elements = useElements();
     const [amount, setAmount] = useState(1000); // Default amount
     const [currency, setCurrency] = useState('usd'); // Default currency
-    const [message, setMessage] = useState(' ');
+    // const [message, setMessage] = useState('INPUT DETAILES!');
     const [isLoading, setIsLoading] = useState(false);
     const { backendUrl, token } = useContext(AppContext);
 
@@ -42,30 +43,34 @@ const Payment = () => {
             });
 
             if (result.error) {
-                setMessage(`Payment failed: ${result.error.message}`);
+                console.log('Payment failed:', result.error);
+                toast.error(`Payment failed: ${result.error.message}`); 
             } else if (result.paymentIntent.status === 'succeeded') {
-                setMessage('Payment successful!');
+                console.log('Payment successful!');
+                toast.success('Payment successful!');
             }
 
-            // Clear the form inputs after successful payment
-            setAmount(1000); // Reset amount to default
-            setCurrency('usd'); // Reset currency to default
-            setMessage(''); // Reset message field
-            elements.getElement(CardElement).clear(); // Clear CardElement
+           
+            setAmount(1000);
+            setCurrency('usd'); 
+            
+            elements.getElement(CardElement).clear(); 
         } catch (error) {
             console.error('Error:', error.message);
-            setMessage('Payment failed. Please try again.');
+            toast.error(`Error: ${error.message}`);
         }
 
         setIsLoading(false);
     };
+
+    
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Complete Your Payment</h2>
 
-                {/* Amount Input */}
+                
                 <div className="mb-4">
                     <label htmlFor="amount" className="block text-sm font-medium text-gray-700">Amount</label>
                     <input
@@ -106,8 +111,7 @@ const Payment = () => {
                     {isLoading ? 'Processing...' : 'Pay Now'}
                 </button>
 
-                {/* Message */}
-                {message && <p className="mt-4 text-center text-green-500">{message}</p>}
+             
             </form>
         </div>
     );
