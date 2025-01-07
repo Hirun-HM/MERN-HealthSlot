@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 const Payment = () => {
     const stripe = useStripe();
     const elements = useElements();
-    const [amount, setAmount] = useState(1000); // Default amount
-    const [currency, setCurrency] = useState('usd'); // Default currency
-    // const [message, setMessage] = useState('INPUT DETAILES!');
+    const [amount, setAmount] = useState(1000); 
+    const [currency, setCurrency] = useState('usd'); 
+    
     const [isLoading, setIsLoading] = useState(false);
     const { backendUrl, token } = useContext(AppContext);
 
@@ -83,7 +83,7 @@ const Payment = () => {
                     />
                 </div>
 
-                {/* Currency Select */}
+                
                 <div className="mb-4">
                     <label htmlFor="currency" className="block text-sm font-medium text-gray-700">Currency</label>
                     <select
@@ -95,14 +95,14 @@ const Payment = () => {
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                         <option value="gbp">GBP</option>
-                        {/* Add more currencies as needed */}
+                        
                     </select>
                 </div>
 
-                {/* Stripe Card Element */}
+            
                 <CardElement className="p-2 border rounded-lg" />
 
-                {/* Submit Button */}
+               
                 <button
                     type="submit"
                     disabled={!stripe || !elements || isLoading}
