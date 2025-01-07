@@ -1,14 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+import React, { useContext } from 'react';
 import  { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from 'axios';
+import { AppContext } from '../context/AppContext';
 
 const payment = () => {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    const { backendUrl ,token } = useContext(AppContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,12 +23,7 @@ const payment = () => {
 
         const cardElement = elements.getElement(CardElement);
 
-        const response = await fetch('/api/payment/create-payment-intent', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: 1000, currency: 'usd' }), // $10.00
-        });
-
+        const response = await axios.get(backendUrl+ '/api/user/',{body: {amount: 1000, currency: 'usd'}},  {headers:{token}})
         const { clientSecret } = await response.json();
 
         const result = await stripe.confirmCardPayment(clientSecret, {
