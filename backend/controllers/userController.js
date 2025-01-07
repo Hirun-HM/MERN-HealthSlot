@@ -226,12 +226,12 @@ const cancelAppointment = async (req, res) => {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const payment = async (req, res) => {
-  const { amount, currency } = req.body; // Amount in smallest currency unit (e.g., cents for USD)
+  const { amount, currency } = req.body; 
 
   try {
       const paymentIntent = await stripe.paymentIntents.create({
           amount,
-          currency, // 'usd', 'eur', etc.
+          currency, 
           payment_method_types: ['card'],
       });
 
