@@ -10,7 +10,7 @@ const MyAppointments = () => {
   const navigate = useNavigate()
 
   const gotoPaymentsPage = () => {
-    navigate("/payment")
+    navigate("/appointment/payment")
   }
 
 const { backendUrl ,token, getDoctorsData } = useContext(AppContext)

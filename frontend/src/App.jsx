@@ -17,7 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Payment from "./pages/payment";
 
-const stripePromise = loadStripe(process.envREACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe('pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo');
 
 const App = () => {
   return (
