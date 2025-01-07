@@ -23,7 +23,7 @@ const payment = () => {
 
         const cardElement = elements.getElement(CardElement);
 
-        const response = await axios.get(backendUrl+ '/api/user/',{body: {amount: 1000, currency: 'usd'}},  {headers:{token}})
+        const response = await axios.get(backendUrl+ '/api/user/',{body: {amount: 1000, currency: 'usd'}},{headers:{token}})
         const { clientSecret } = await response.json();
 
         const result = await stripe.confirmCardPayment(clientSecret, {
