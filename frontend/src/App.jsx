@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 
 import { Route, Routes } from 'react-router-dom'
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import Home from './pages/Home'
 import Doctors from './pages/Doctors'
 import About from './pages/About'
@@ -13,9 +16,11 @@ import Footer from './components/footer'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const stripePromise = loadStripe(process.envREACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const App = () => {
   return (
+    <Elements stripe={stripePromise}>
     <div className='mx-4 sm:mx-[10%]'>
       <ToastContainer/>
       <Navbar />
@@ -35,6 +40,7 @@ const App = () => {
       </Routes>
       <Footer />
     </div>
+    </Elements>
   )
 }
 
