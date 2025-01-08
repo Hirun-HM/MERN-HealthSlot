@@ -71,7 +71,9 @@ const initPay = (order) => {
       
     }
   }
- 
+
+  const str = new window.Stripe(options)
+ str.open()
 
 }
 
