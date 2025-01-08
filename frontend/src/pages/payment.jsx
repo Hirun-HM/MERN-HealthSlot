@@ -7,8 +7,7 @@ import { toast } from 'react-toastify';
 const Payment = () => {
     const stripe = useStripe();
     const elements = useElements();
-    const [amount, setAmount] = useState(1000); 
-    const [currency, setCurrency] = useState('usd'); 
+   
     
     const [isLoading, setIsLoading] = useState(false);
     const { backendUrl, token } = useContext(AppContext);
@@ -51,8 +50,7 @@ const Payment = () => {
             }
 
            
-            setAmount(1000);
-            setCurrency('usd'); 
+          
             
             elements.getElement(CardElement).clear(); 
         } catch (error) {
