@@ -57,7 +57,18 @@ const cancelAppointment = async (appointmentId) => {
 }
 
 const initPay = (order) => {
-  
+
+  const options = {
+    key: "pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo",
+    amount: order.amount,
+    currency: order.currency,
+    name: 'appointment Payment',
+    description: 'Appointment payment',
+    order_id: order.id,
+    receipt: order.receipt,
+  }
+ 
+
 }
 
 const paymentStripe = async (appointmentId) => {
