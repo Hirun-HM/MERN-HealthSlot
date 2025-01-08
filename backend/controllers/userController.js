@@ -239,11 +239,12 @@ const payment = async (req, res) => {
       });
     }
 
-    const options = {
-      amount: appointmentData.amount *100,
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: appointmentData.amount * 100, 
       currency: "usd",
-      receipt: appointmentId,
-    };
+      description: `Payment for appointment ${appointmentId}`,
+      metadata: { appointmentId }, 
+    });
 
     const order = await stripe.orders.create(options);
 
