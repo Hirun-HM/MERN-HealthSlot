@@ -2,14 +2,16 @@ import  { useContext, useEffect, useState } from 'react'
 import {AppContext} from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { loadStripe } from '@stripe/stripe-js';
+import { useNavigate } from 'react-router-dom'
 
-
-const stripePromise = loadStripe("pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo");
 
 const MyAppointments = () => {
 
+  const navigate = useNavigate()
 
+  const gotoPaymentsPage = () => {
+    navigate("/appointment/payment")
+  }
 
 const { backendUrl ,token, getDoctorsData } = useContext(AppContext)
 
@@ -58,45 +60,6 @@ const cancelAppointment = async (appointmentId) => {
   }
 }
 
-const initPay = async (clientSecret) => {
-  const stripe = await stripePromise;
-
-  console.log("clientSecret:", clientSecret);
-
-
-  const { error } = await stripe.confirmPayment({
-    clientSecret,
-    confirmParams: {
-      return_url: `${window.location.origin}/payment-success`, 
-    },
-  });
-
-  if (error) {
-    console.error(error.message);
-    toast.error(error.message);
-  }
-};
-
-
-const paymentStripe = async (appointmentId) => {
-  try {
-    const { data } = await axios.post(
-      backendUrl + "/api/user/create-payment-intent",
-      { appointmentId },
-      { headers: { token } }
-    );
-
-    
-
-    if (data.success) {
-      initPay(data.clientSecret);
-    }
-  } catch (error) {
-    console.log(error);
-    toast.error(error.message);
-  }
-};
-
 
 
 useEffect(() => {
@@ -125,7 +88,7 @@ useEffect(() => {
               </div>
               <div></div> 
               <div className='flex flex-col gap-2 justify-end'>
-                {!item.cancelled &&<button onClick={() =>  paymentStripe(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>}
+                {!item.cancelled &&<button onClick={gotoPaymentsPage} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>}
                 {!item.cancelled && <button onClick={()=>cancelAppointment(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel appointment</button>}
                 {item.cancelled && <button className='sm:min-w-48 py-2 border border-red-500 rounded text-red-500'>Appointment cancelled</button>}
               </div>

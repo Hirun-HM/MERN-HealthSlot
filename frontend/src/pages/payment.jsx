@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
 
+// eslint-disable-next-line react/prop-types
 const Payment = ({ appointmentId }) => {
     const stripe = useStripe();
     const elements = useElements();
