@@ -62,8 +62,13 @@ try {
   
 
   const {data} = await axios.post(backendUrl + "/api/user/create-payment-intent",{appointmentId} , {headers: {token}})
+
+  if (data.success) {
+    console.log(data.order)
+  }
 } catch (error) {
-  
+  console.log(error);
+    toast.error(error.message)
 }
 
 
