@@ -233,6 +233,12 @@ if (!appointmentData || appointmentData.cancelled) {
   return res.json({success: false, message: "Appointment cancelled or not found"})
 }
 
+const options = {
+  amount: appointmentData.amount * 100,
+  currency: "usd",
+  receipt: appointmentId,
+}
+
 
 
 }
