@@ -240,7 +240,7 @@ const payment = async (req, res) => {
     }
 
     const options = {
-      amount: appointmentData.amount * 100,
+      amount: appointmentData.amount *100,
       currency: "usd",
       receipt: appointmentId,
     };
