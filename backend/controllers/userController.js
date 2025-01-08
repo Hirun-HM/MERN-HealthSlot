@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appiontmentModel.js";
-import Stripe from 'stripe'
+import Stripe from "stripe";
 
 //API to register user
 const registerUser = async (req, res) => {
@@ -223,36 +223,36 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-const stripe = new Stripe('sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD');
+const stripe = new Stripe(
+  "sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD"
+);
 
 const payment = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+    const appointmentData = await appointmentModel.findById(appointmentId);
 
-  try{
- const {appointmentId} = req.body
-const appointmentData =  await appointmentModel.findById(appointmentId)
+    if (!appointmentData || appointmentData.cancelled) {
+      return res.json({
+        success: false,
+        message: "Appointment cancelled or not found",
+      });
+    }
 
-if (!appointmentData || appointmentData.cancelled) {
-  return res.json({success: false, message: "Appointment cancelled or not found"})
-}
+    const options = {
+      amount: appointmentData.amount * 100,
+      currency: "usd",
+      receipt: appointmentId,
+    };
 
-const options = {
-  amount: appointmentData.amount * 100,
-  currency: "usd",
-  receipt: appointmentId,
-}
+    const order = await stripe.orders.create(options);
 
-const order = await stripe.orders.create(options)
-
-res.json({success: true,order})
-
-  }catch(error){
+    res.json({ success: true, order });
+  } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-
-}
-
-
+};
 
 export {
   registerUser,
