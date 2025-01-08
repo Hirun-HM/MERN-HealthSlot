@@ -248,7 +248,7 @@ const payment = async (req, res) => {
 
     res.json({
       success: true,
-      clientSecret: paymentIntent.client_secret, // Send clientSecret to the frontend
+      clientSecret: paymentIntent.client_secret, 
     });
   } catch (error) {
     console.log(error);
