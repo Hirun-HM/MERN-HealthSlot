@@ -78,7 +78,7 @@ const initPay = (order) => {
 }
 
 const paymentStripe = async (appointmentId) => {
-
+  
 try {
   
 
