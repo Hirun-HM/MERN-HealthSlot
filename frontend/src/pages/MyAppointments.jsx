@@ -66,6 +66,10 @@ const initPay = (order) => {
     description: 'Appointment payment',
     order_id: order.id,
     receipt: order.receipt,
+    handler: async (response) => {
+      console.log(response);
+      
+    }
   }
  
 
