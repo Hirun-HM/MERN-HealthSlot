@@ -246,9 +246,10 @@ const payment = async (req, res) => {
       metadata: { appointmentId }, 
     });
 
-    const order = await stripe.orders.create(options);
-
-    res.json({ success: true, order });
+    res.json({
+      success: true,
+      clientSecret: paymentIntent.client_secret, // Send clientSecret to the frontend
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
