@@ -16,8 +16,8 @@ const Payment = ({ appointmentId }) => {
     useEffect(() => {
         const fetchPaymentDetails = async () => {
             try {
-                const response = await axios.get(`${backendUrl}/api/appointments/${appointmentId}/payment-details`, {
-                    headers: { Authorization: `Bearer ${token}` },
+                const response = await axios.get(backendUrl+ "/api/user/appointments", {
+                    headers: {token },
                 });
 
                 const { amount, currency } = response.data;
@@ -46,7 +46,7 @@ const Payment = ({ appointmentId }) => {
             const response = await axios.post(
                 `${backendUrl}/api/user/create-payment-intent`,
                 { amount, currency },
-                { headers: { Authorization: `Bearer ${token}` } }
+                { headers: {token } }
             );
 
             const { clientSecret } = response.data;
