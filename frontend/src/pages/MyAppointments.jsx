@@ -4,7 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { loadStripe } from '@stripe/stripe-js';
 
-// import { useNavigate } from 'react-router-dom'
+
 const stripePromise = loadStripe("pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo");
 
 const MyAppointments = () => {
@@ -61,6 +61,9 @@ const cancelAppointment = async (appointmentId) => {
 const initPay = async (clientSecret) => {
   const stripe = await stripePromise;
 
+  console.log("clientSecret:", clientSecret);
+
+
   const { error } = await stripe.confirmPayment({
     clientSecret,
     confirmParams: {
@@ -82,6 +85,8 @@ const paymentStripe = async (appointmentId) => {
       { appointmentId },
       { headers: { token } }
     );
+
+    
 
     if (data.success) {
       initPay(data.clientSecret);

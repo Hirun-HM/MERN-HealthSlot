@@ -223,36 +223,79 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-const stripe = new Stripe(
-  "sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD"
-);
+const stripe = new Stripe("sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD");
 
-const payment = async (req, res) => {
+const getPaymentDetails = async (req, res) => {
   try {
-    const { appointmentId } = req.body;
+    const { appointmentId } = req.params;
+
+    // Fetch appointment data
     const appointmentData = await appointmentModel.findById(appointmentId);
 
-    if (!appointmentData || appointmentData.cancelled) {
-      return res.json({
+    if (!appointmentData) {
+      return res.status(404).json({
         success: false,
-        message: "Appointment cancelled or not found",
+        message: "Appointment not found",
       });
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: appointmentData.amount * 100, 
-      currency: "usd",
-      description: `Payment for appointment ${appointmentId}`,
-      metadata: { appointmentId }, 
-    });
+    if (appointmentData.cancelled) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment is cancelled",
+      });
+    }
 
+    // Return payment details
     res.json({
       success: true,
-      clientSecret: paymentIntent.client_secret, 
+      amount: appointmentData.amount,
+      currency: appointmentData.currency || "usd", // Default to USD if currency is not defined
     });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Controller to create a payment intent
+const createPaymentIntent = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+
+    // Fetch appointment data
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (!appointmentData) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    if (appointmentData.cancelled) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment is cancelled",
+      });
+    }
+
+    // Create Stripe payment intent
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: appointmentData.amount * 100, // Convert to smallest currency unit (cents)
+      currency: appointmentData.currency || "usd", // Default to USD if currency is not defined
+      description: `Payment for appointment ${appointmentId}`,
+      metadata: { appointmentId },
+    });
+
+    // Return client secret for frontend
+    res.json({
+      success: true,
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -264,5 +307,7 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  payment,
+  getPaymentDetails,
+  createPaymentIntent,
+
 };
