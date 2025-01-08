@@ -58,6 +58,15 @@ const cancelAppointment = async (appointmentId) => {
 
 const paymentStripe = async (appointmentId) => {
 
+try {
+  
+
+  const {data} = await axios.post(backendUrl + "/api/user/create-payment-intent",{appointmentId} , {headers: {token}})
+} catch (error) {
+  
+}
+
+
 }
 
 
