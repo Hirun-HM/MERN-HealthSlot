@@ -226,20 +226,9 @@ const cancelAppointment = async (req, res) => {
 const stripe = new Stripe('sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD');
 
 const payment = async (req, res) => {
-  const { amount, currency } = req.body; 
+ const {appointmentId} = req.body
 
-  try {
-      const paymentIntent = await stripe.paymentIntents.create({
-          amount,
-          currency, 
-          payment_method_types: ['card'],
-      });
-
-      res.status(200).json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
-  }
+ 
 }
 
 
