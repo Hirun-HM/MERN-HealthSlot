@@ -246,7 +246,7 @@ const payment = async (req, res) => {
       description: `Payment for appointment ID: ${appointmentId}`,
       metadata: { appointmentId },
     });
-    res.json({
+   res.json({
       success: true,
       clientSecret: paymentIntent.client_secret,
     });
