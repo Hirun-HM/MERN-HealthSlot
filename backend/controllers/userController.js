@@ -250,7 +250,7 @@ const payment = async (req, res) => {
               name: `Appointment with ${appointmentData.docData.name}`,
               description: `${appointmentData.docData.speciality}`,
             },
-            unit_amount: appointmentData.amount * 100, // Stripe requires amount in cents
+            unit_amount: appointmentData.amount * 100, 
           },
           quantity: 1,
         },
