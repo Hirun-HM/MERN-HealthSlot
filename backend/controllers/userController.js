@@ -265,6 +265,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  getPaymentDetails,
-  createPaymentIntent,
+ payment,
 };
