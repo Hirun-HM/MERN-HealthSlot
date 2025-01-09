@@ -223,79 +223,47 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-const stripe = new Stripe("sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD");
+const stripe = new Stripe(
+  "sk_test_51QeSZf03USBqC0b7tBg8cooSao0fxCf61hiesWYzxBCGAPOkbhNdlFUr8FhIgJcjkzxMCKfdvwxk8wuVeaQeoA1k001n2JTlbD"
+);
 
-const getPaymentDetails = async (req, res) => {
-  try {
-    const { appointmentId } = req.params;
-
-    // Fetch appointment data
-    const appointmentData = await appointmentModel.findById(appointmentId);
-
-    if (!appointmentData) {
-      return res.status(404).json({
-        success: false,
-        message: "Appointment not found",
-      });
-    }
-
-    if (appointmentData.cancelled) {
-      return res.status(400).json({
-        success: false,
-        message: "Appointment is cancelled",
-      });
-    }
-
-    // Return payment details
-    res.json({
-      success: true,
-      amount: appointmentData.amount,
-      currency: appointmentData.currency || "usd", // Default to USD if currency is not defined
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-// Controller to create a payment intent
-const createPaymentIntent = async (req, res) => {
+const payment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
 
-    // Fetch appointment data
     const appointmentData = await appointmentModel.findById(appointmentId);
 
-    if (!appointmentData) {
-      return res.status(404).json({
+    if (!appointmentData || appointmentData.cancelled) {
+      return res.json({
         success: false,
-        message: "Appointment not found",
+        message: "Appointment cancelled or not found",
       });
     }
 
-    if (appointmentData.cancelled) {
-      return res.status(400).json({
-        success: false,
-        message: "Appointment is cancelled",
-      });
-    }
-
-    // Create Stripe payment intent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: appointmentData.amount * 100, // Convert to smallest currency unit (cents)
-      currency: appointmentData.currency || "usd", // Default to USD if currency is not defined
-      description: `Payment for appointment ${appointmentId}`,
-      metadata: { appointmentId },
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: `Appointment with ${appointmentData.docData.name}`,
+              description: `${appointmentData.docData.speciality}`,
+            },
+            unit_amount: appointmentData.amount * 100, 
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "http://localhost:5173/my-appointments",
+      cancel_url: "http://localhost:5173/my-appointments",
     });
 
-    // Return client secret for frontend
-    res.json({
-      success: true,
-      clientSecret: paymentIntent.client_secret,
-    });
+    res.json({ success: true, id: session.id });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: error.message });
+    console.error(error);
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -307,7 +275,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  getPaymentDetails,
-  createPaymentIntent,
-
+  payment,
 };
