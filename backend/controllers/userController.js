@@ -265,5 +265,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
- payment,
+  payment,
 };
