@@ -3,7 +3,7 @@ import {AppContext} from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { loadStripe } from "@stripe/stripe-js";
-// import { useNavigate } from 'react-router-dom'
+
 
 
 
@@ -11,11 +11,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const MyAppointments = () => {
 
-  // const navigate = useNavigate()
-
-  // const gotoPaymentsPage = () => {
-  //   navigate("/appointment/payment")
-  // }
+ 
 
 const { backendUrl ,token, getDoctorsData } = useContext(AppContext)
 
@@ -66,7 +62,7 @@ const cancelAppointment = async (appointmentId) => {
 
 const handleCheckout = async (appointmentId) => {
   try {
-    // Call the backend to create a payment session
+    
     const { data } = await axios.post(
       backendUrl + "/api/user/create-payment-intent",
       { appointmentId },
@@ -74,7 +70,7 @@ const handleCheckout = async (appointmentId) => {
     );
 
     if (data.id) {
-      // Load Stripe and redirect to the payment page
+      
       const stripe = await loadStripe("pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo");
       await stripe.redirectToCheckout({ sessionId: data.id });
     } else {
