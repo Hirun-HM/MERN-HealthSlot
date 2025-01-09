@@ -240,16 +240,15 @@ const payment = async (req, res) => {
       });
     }
 
-    const options = {
-      amount: appointmentData.amount * 100,
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: appointmentData.amount * 100, // Convert amount to cents
       currency: "usd",
-      receipt: appointmentId,
-    };
-
-    const order = await stripe.orders.create(options);
+      description: `Payment for appointment ID: ${appointmentId}`,
+      metadata: { appointmentId },
+    });
     res.json({
       success: true,
-      order,
+      clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
     console.log(error);
