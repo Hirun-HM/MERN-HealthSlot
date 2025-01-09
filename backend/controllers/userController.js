@@ -259,6 +259,8 @@ const payment = async (req, res) => {
       success_url: "http://localhost:5173/my-appointments",
       cancel_url: "http://localhost:5173/my-appointments",
     });
+    console.log(session.id);
+    
 
     res.json({ success: true, id: session.id });
   } catch (error) {
