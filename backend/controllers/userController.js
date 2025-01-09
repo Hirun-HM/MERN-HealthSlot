@@ -256,7 +256,7 @@ const payment = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:5173/success",
+      success_url: "http://localhost:5173/my-appointments",
       cancel_url: "http://localhost:5173/my-appointments",
     });
 
