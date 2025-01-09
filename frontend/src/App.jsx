@@ -15,7 +15,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Payment from "./pages/payment";
+
 
 const stripePromise = loadStripe('pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo');
 
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/my-appointments" element={<MyAppointments />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/appointment/:docId" element={<Appointment />} />
-          {/* <Route path="/appointment/payment" element={<Payment />} /> */}
+         
         </Routes>
         <Footer />
       </div>
