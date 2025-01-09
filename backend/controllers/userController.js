@@ -236,22 +236,33 @@ const payment = async (req, res) => {
     if (!appointmentData || appointmentData.cancelled) {
       return res.json({
         success: false,
-        message: "appointment cancelled or not found",
+        message: "Appointment cancelled or not found",
       });
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: appointmentData.amount * 100, // Convert amount to cents
-      currency: "usd",
-      description: `Payment for appointment ID: ${appointmentId}`,
-      metadata: { appointmentId },
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: `Appointment with ${appointmentData.docData.name}`,
+              description: `${appointmentData.docData.speciality}`,
+            },
+            unit_amount: appointmentData.amount * 100, // Stripe requires amount in cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "http://localhost:5173/success",
+      cancel_url: "http://localhost:5173/my-appointments",
     });
-   res.json({
-      success: true,
-      clientSecret: paymentIntent.client_secret,
-    });
+
+    res.json({ success: true, id: session.id });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.json({ success: false, message: error.message });
   }
 };
