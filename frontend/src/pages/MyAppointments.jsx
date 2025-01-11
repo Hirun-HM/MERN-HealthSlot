@@ -74,7 +74,7 @@ const handleCheckout = async (appointmentId) => {
       const stripe = await loadStripe("pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo");
       await stripe.redirectToCheckout({ sessionId: data.id });
       console.log();
-      
+   
     } else {
       toast.error("Failed to create payment session");
     }

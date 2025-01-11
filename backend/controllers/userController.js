@@ -256,12 +256,14 @@ const payment = async (req, res) => {
         },
       ],
       mode: "payment",
+      
       success_url: "http://localhost:5173/my-appointments",
       cancel_url: "http://localhost:5173/my-appointments",
+      
     });
     console.log(session.id);
 
-    if (session.success) {
+    if (payment.success) {
       appointmentData.payment = true
       await appointmentData.save()
     }
