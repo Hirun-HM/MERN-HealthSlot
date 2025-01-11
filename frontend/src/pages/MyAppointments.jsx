@@ -74,7 +74,9 @@ const handleCheckout = async (appointmentId) => {
       const stripe = await loadStripe("pk_test_51QeSZf03USBqC0b7Q9nzgegZGknnqVxKxAiLcQyNRr6rbpumvicanD4fVF78hLeu4h2dwfBkMUnyWVu7Wcf6ViIv007ihG3GBo");
       await stripe.redirectToCheckout({ sessionId: data.id });
       console.log();
-      
+     
+
+   
     } else {
       toast.error("Failed to create payment session");
     }
@@ -114,7 +116,7 @@ useEffect(() => {
               </div>
               <div></div> 
               <div className='flex flex-col gap-2 justify-end'>
-                {!item.cancelled &&<button onClick={() => handleCheckout(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>}
+                {!item.cancelled && !item.payment && <button onClick={() => handleCheckout(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>}
                 {!item.cancelled && <button onClick={()=>cancelAppointment(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel appointment</button>}
                 {item.cancelled && <button className='sm:min-w-48 py-2 border border-red-500 rounded text-red-500'>Appointment cancelled</button>}
               </div>
