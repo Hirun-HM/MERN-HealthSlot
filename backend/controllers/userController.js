@@ -273,6 +273,7 @@ const payment = async (req, res) => {
 
 const endpointSecret = "whsec_Pwa0wz8yhwziSyOO8HxmpfD2TczpLoCi"
 const verifyPayment = async (req, res) => {
+  console.log("Entered verifyPayment");
   const sig = req.headers["stripe-signature"];
   let event;
 
