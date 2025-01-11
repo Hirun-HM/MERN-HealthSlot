@@ -6,6 +6,7 @@ import connectCloudinary from './config/cloudinary.js'
 import adminRouter from './routes/adminRoute.js'
 import doctorRouter from './routes/doctorRoute.js'
 import userRouter from './routes/userRoute.js'
+import bodyParser from 'body-parser'
 
 
 //app config
@@ -15,6 +16,7 @@ connectDB()
 connectCloudinary()
 
 //middlewares
+
 app.use(express.json());
 app.use(cors());
 
