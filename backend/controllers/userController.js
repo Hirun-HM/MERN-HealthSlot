@@ -258,7 +258,11 @@ const payment = async (req, res) => {
       mode: "payment",
       success_url: "http://localhost:5173/my-appointments",
       cancel_url: "http://localhost:5173/my-appointments",
+      metadata: { appointmentId: appointmentId },
     });
+    
+    
+   
 
     res.json({ success: true, id: session.id });
   } catch (error) {
@@ -266,6 +270,49 @@ const payment = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+const endpointSecret = "whsec_Pwa0wz8yhwziSyOO8HxmpfD2TczpLoCi"
+const verifyPayment = async (req, res) => {
+  console.log("Entered verifyPayment");
+  const sig = req.headers["stripe-signature"];
+  console.log("Stripe signature:", sig);
+  let event;
+
+  try {
+    console.log("Verifying signature...");
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    console.log("Signature verified, event constructed.");
+  } catch (err) {
+    console.error("Webhook signature verification failed:", err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    const appointmentId = session.metadata.appointmentId;
+
+    try {
+      console.log(`Looking for appointment with ID: ${appointmentId}`);
+      const appointment = await appointmentModel.findById(appointmentId);
+      
+      if (appointment) {
+        appointment.payment = true;
+        await appointment.save();
+        console.log(`Payment for appointment ${appointmentId} marked as complete.`);
+      } else {
+        console.error(`Appointment with ID ${appointmentId} not found.`);
+      }
+    } catch (err) {
+      console.error("Database update failed:", err);
+    }
+  }
+
+  res.status(200).json({ received: true });
+};
+
+
+
+
 
 export {
   registerUser,
@@ -276,4 +323,5 @@ export {
   listAppointment,
   cancelAppointment,
   payment,
+  verifyPayment,
 };
