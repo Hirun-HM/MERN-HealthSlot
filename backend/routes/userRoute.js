@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerUser,loginUser, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment,  payment } from '../controllers/userController.js'
+import { registerUser,loginUser, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment,  payment, verifyPayment } from '../controllers/userController.js'
 import authUser from '../middlewares/authUser.js'
 import upload from '../middlewares/multer.js'
 
@@ -14,7 +14,7 @@ userRouter.post('/book-appointment',authUser,bookAppointment)
 userRouter.get('/appointments',authUser,listAppointment)
 userRouter.post('/cancel-appointment',authUser,cancelAppointment)
 userRouter.post('/create-payment-intent',authUser,payment)
-userRouter.post('/webhook',express.raw({ type: "application/json" }),pa)
+userRouter.post('/webhook',express.raw({ type: "application/json" }),verifyPayment)
 
 
 
