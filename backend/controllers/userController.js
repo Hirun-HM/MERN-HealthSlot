@@ -316,4 +316,5 @@ export {
   listAppointment,
   cancelAppointment,
   payment,
+  verifyPayment,
 };

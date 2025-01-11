@@ -14,7 +14,7 @@ userRouter.post('/book-appointment',authUser,bookAppointment)
 userRouter.get('/appointments',authUser,listAppointment)
 userRouter.post('/cancel-appointment',authUser,cancelAppointment)
 userRouter.post('/create-payment-intent',authUser,payment)
-
+userRouter.post('/webhook',express.raw({ type: "application/json" }),pa)
 
 
 
