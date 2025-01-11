@@ -15,7 +15,7 @@ userRouter.post('/book-appointment',authUser,bookAppointment)
 userRouter.get('/appointments',authUser,listAppointment)
 userRouter.post('/cancel-appointment',authUser,cancelAppointment)
 userRouter.post('/create-payment-intent',authUser,payment)
-userRouter.post('/webhook',bodyParser.raw({ type: 'application/json' }),(req, res, next) => {
+userRouter.post('/webhook',(req, res, next) => {
     console.log("Webhook received!");
     next();},verifyPayment)
 

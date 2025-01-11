@@ -17,8 +17,11 @@ connectCloudinary()
 
 //middlewares
 
-app.use(express.json());
+
 app.use(cors());
+app.use('/api/user/webhook', bodyParser.raw({ type: 'application/json' }));
+
+app.use(express.json());
 
 //api endpoints
 app.use('/api/admin',adminRouter)
