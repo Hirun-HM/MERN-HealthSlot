@@ -260,10 +260,9 @@ const payment = async (req, res) => {
       cancel_url: "http://localhost:5173/my-appointments",
       metadata: { appointmentId: appointmentId },
     });
-    console.log(session.id);
     
-    appointmentData.payment = true
-    await appointmentData.save()
+    
+   
 
     res.json({ success: true, id: session.id });
   } catch (error) {
