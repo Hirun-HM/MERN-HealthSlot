@@ -258,6 +258,7 @@ const payment = async (req, res) => {
       mode: "payment",
       success_url: "http://localhost:5173/my-appointments",
       cancel_url: "http://localhost:5173/my-appointments",
+      metadata: { appointmentId: appointmentId },
     });
     console.log(session.id);
     
@@ -270,6 +271,9 @@ const payment = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+
+
 
 export {
   registerUser,
