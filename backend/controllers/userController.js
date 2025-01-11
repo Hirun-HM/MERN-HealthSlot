@@ -261,6 +261,8 @@ const payment = async (req, res) => {
     });
     console.log(session.id);
     
+    appointmentData.payment = true
+    await appointmentData.save()
 
     res.json({ success: true, id: session.id });
   } catch (error) {
