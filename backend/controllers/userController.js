@@ -279,7 +279,9 @@ const verifyPayment = async (req, res) => {
   let event;
 
   try {
+    console.log("Verifying signature...");
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    console.log("Signature verified, event constructed.");
   } catch (err) {
     console.error("Webhook signature verification failed:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
