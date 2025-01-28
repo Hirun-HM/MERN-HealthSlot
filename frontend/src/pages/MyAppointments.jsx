@@ -3,15 +3,11 @@ import {AppContext} from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { loadStripe } from "@stripe/stripe-js";
-
-
-
-
+import {useNavigate} from 'react-router-dom'
 
 
 const MyAppointments = () => {
 
- 
 
 const { backendUrl ,token, getDoctorsData } = useContext(AppContext)
 
@@ -23,6 +19,8 @@ const slotDateFormat = (slotDate) => {
   return dateArray[0]+ " " + months[Number(dateArray[1])]+ " "+ dateArray[2]
 
 }
+
+const navigate = useNavigate()
 
 
 const getUserAppointments = async () => {
