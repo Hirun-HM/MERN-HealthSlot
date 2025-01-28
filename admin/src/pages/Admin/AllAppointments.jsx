@@ -1,9 +1,13 @@
+
 import { useContext, useEffect } from "react"
 import { AdminContext } from "../../context/AdminContext"
+import { AppContext } from "../../context/AppContext"
+import { assets } from "../../assets/assets"
 
 const AllAppointments = () => {
 
   const {aToken, appointments, getAllAppointments} = useContext(AdminContext)
+  const {calculateAge, slotDateFormat,currency} = useContext(AppContext)
 
   useEffect(()=>{
     if(aToken){
@@ -33,6 +37,13 @@ const AllAppointments = () => {
             <div className="flex items-center gap-2">
               <img className="w-8 rounded-full" src={item.userData.image} alt="" /> <p>{item.userData.name}</p>
             </div>
+            <p className="max-sm:hidden">{calculateAge(item.userData.dob)}</p>
+            <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
+            <div className="flex items-center gap-2">
+              <img className="w-8 rounded-full bg-gray-200" src={item.docData.image} alt="" /> <p>{item.docData.name}</p>
+            </div>
+            <p>{currency}{item.amount}</p>
+            <img className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
 
           </div>
         ))}
