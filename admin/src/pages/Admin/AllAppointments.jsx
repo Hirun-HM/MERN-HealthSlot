@@ -43,7 +43,11 @@ const AllAppointments = () => {
               <img className="w-8 rounded-full bg-gray-200" src={item.docData.image} alt="" /> <p>{item.docData.name}</p>
             </div>
             <p>{currency}{item.amount}</p>
-            <img className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
+            {item.cancelled
+            ? <p className="text-red-400 text-xs font-medium">Cancelled</p>
+            : <img className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" /> 
+            }
+            
 
           </div>
         ))}
