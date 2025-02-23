@@ -6,6 +6,6 @@ const DoctorProfile = () => {
       
     </div>
   )
-}
+ }
 
 export default DoctorProfile
