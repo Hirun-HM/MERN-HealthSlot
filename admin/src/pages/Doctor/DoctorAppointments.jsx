@@ -2,6 +2,7 @@ import  { useContext,useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 
 const DoctorAppointments = () => {
+  // eslint-disable-next-line no-unused-vars
   const {dToken, getAppointments, appointments} = useContext(DoctorContext)
 
   useEffect(()=>{
