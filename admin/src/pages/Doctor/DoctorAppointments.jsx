@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react'
+import  { useContext,useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets'
@@ -30,7 +30,7 @@ const DoctorAppointments = () => {
         </div>
 
         {
-          appointments.map((item,index)=>(
+          appointments.reverse().map((item,index)=>(
             <div className='flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50' key={index}>
               <p className='max-sm:hidden'>{index+1}</p>
               <div className='flex items-center gap-2'>
@@ -46,9 +46,9 @@ const DoctorAppointments = () => {
                 <p>{currency} {item.amount}</p>
                 {
                   item.cancelled
-                  ? <p>Cancelled</p>
+                  ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
                   : item.isCompleted
-                  ? <p>Completed</p>
+                  ? <p className='text-green-500 text-xs font-medium'>Completed</p>
                   :<div className='flex'>
                   <img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
                   <img onClick={()=>completeAppointment(item._id)} className='w-10 cursor-pointer' src={assets.tick_icon} alt="" />
