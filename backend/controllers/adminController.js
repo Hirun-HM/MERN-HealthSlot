@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import appointmentModel from "../models/appointmentModel.js";
 import userModel from "../models/userModel.js";
 
-//API for adding doctor
+
 
 const addDoctor = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ const addDoctor = async (req, res) => {
     } = req.body;
     const imageFile = req.file;
 
-    //checking for all data to add doctor
+    
     if (
       !name ||
       !email ||
@@ -40,7 +40,7 @@ const addDoctor = async (req, res) => {
         message: "missing details",
       });
     }
-    //validating email format
+ 
     if (!validator.isEmail(email)) {
       return res.json({
         success: false,
@@ -48,7 +48,7 @@ const addDoctor = async (req, res) => {
       });
     }
 
-    //validating password
+ 
     if (password.length < 8) {
       return res.json({
         success: false,
@@ -56,7 +56,7 @@ const addDoctor = async (req, res) => {
       });
     }
 
-    //hashing doctor password
+   
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -95,7 +95,7 @@ const addDoctor = async (req, res) => {
   }
 };
 
-//api for the admin login
+
 const loginAdmin = async (req,res) =>{
   try{
     const {email,password} = req.body
@@ -118,7 +118,7 @@ const loginAdmin = async (req,res) =>{
   }
 }
 
-// API to get all doctors list for admin panel
+
 const allDoctors = async (req,res)=> {
   try {
     
@@ -134,7 +134,7 @@ const allDoctors = async (req,res)=> {
 
 }
 
-// API to get all appointments list
+
 const appointmentsAdmin = async (req, res) => {
   try {
 
@@ -150,7 +150,7 @@ const appointmentsAdmin = async (req, res) => {
   }
 }
 
-//API for appointment cancellation
+
 const appointmentCancel = async (req, res) => {
   try {
     const { appointmentId } = req.body;
@@ -161,7 +161,7 @@ const appointmentCancel = async (req, res) => {
       cancelled: true,
     });
 
-    // releasing doctor slot
+  
 
     const { docId, slotDate, slotTime } = appointmentData;
 
@@ -182,7 +182,7 @@ const appointmentCancel = async (req, res) => {
   }
 };
 
-//API to get dashboard data for admin panel
+
 const adminDashboard = async (req,res) => {
   try {
     
